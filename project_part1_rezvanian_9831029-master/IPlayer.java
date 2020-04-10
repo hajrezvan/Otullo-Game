@@ -4,4 +4,8 @@
  * @version 0.0
  */
 public interface IPlayer {
+    int getColorCode();
+    int getIntPlayerTurn();
+    void setPlayerTurn(boolean playerTurn);
+    void setColorCode(int colorCode);
 }
