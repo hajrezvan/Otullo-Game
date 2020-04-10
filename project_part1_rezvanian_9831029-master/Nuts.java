@@ -1,11 +1,16 @@
 /**
  * This class represent status of nuts, and add them to map.
  * @author Rezvanian 9831029
- * @version 0.0
+ * @version 1.2
  */
 public class Nuts extends Board implements INuts {
+
     private char color;
+
+    //This field is for "map" field in super class
     private int MergePosition;
+
+    //This fields are for "visualMap" field in super class
     private int x;
     private int y;
 
@@ -30,8 +35,21 @@ public class Nuts extends Board implements INuts {
      * method in "Board" class.
      */
     public void setNutsInBoard(){
+
+        //Access in version 0.1
+        char[][] visualMapMap = getVisualMap();
+        char[] map = getMap();
+        map[getMergePosition()] = color;
+        visualMapMap[4*getY()+2][8*getX()+4] = color;
+
+        setMap(map);
+        setVisualMap(visualMapMap);
+
+        /*
+        Access in version 0.0
         setMapByPosition(MergePosition,color);
         setVisualMapByPosition(x,y,color);
+        */
     }
 
     public char getColor() {
