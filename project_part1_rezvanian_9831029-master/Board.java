@@ -1,85 +1,99 @@
-import java.io.IOException;
-
 /**
  * This class represents status of board and update its.
  * @author Rezvanian 9831029
- * @version 0.0
+ * @version 1.2
  */
-
 public class Board implements IBoard  {
-    private final int SIZE = 9;
+
+    //constant variable, size of map
+    private static final int SIZE = 9;
+
     //for programmer
+    private static char[] map = new char[81];
+
+    /*
+    Access in version 0.1
     private char[] map;
+    */
+
     //for user
+    private static char[][] visualMap = new char[4 * 9 + 1][8 * 9 + 1];
+
+    /*
+    Access in version 0.1
     private char[][] visualMap;
+    */
 
     /**
-     * This constructor, initialise the fields.
+     * This method, initialise the fields and map.
      */
-    public Board(){
+    public static void initialisingBoard(){
 
         map = new char[81];
         for (int i = 0; i < SIZE * SIZE; i++){
+
+            //initialise the map and set header of map
             switch (i){
                 case 0:{
-                    this.map[i] = '+';
+                    map[i] = '+';
                 }
                 case 1:{
-                    this.map[i] = 'A';
+                    map[i] = 'A';
                 }
                 case 2:{
-                    this.map[i] = 'B';
+                    map[i] = 'B';
                 }
                 case 3:{
-                    this.map[i] = 'C';
+                    map[i] = 'C';
                 }
                 case 4:{
-                    this.map[i] = 'D';
+                    map[i] = 'D';
                 }
                 case 5:{
-                    this.map[i] = 'E';
+                    map[i] = 'E';
                 }
                 case 6:{
-                    this.map[i] = 'F';
+                    map[i] = 'F';
                 }
                 case 7:{
-                    this.map[i] = 'G';
+                    map[i] = 'G';
                 }
                 case 8:{
-                    this.map[i] = 'H';
+                    map[i] = 'H';
                 }
                 case 9:{
-                    this.map[i] = '1';
+                    map[i] = '1';
                 }
                 case 18:{
-                    this.map[i] = '2';
+                    map[i] = '2';
                 }
                 case 27:{
-                    this.map[i] = '3';
+                    map[i] = '3';
                 }
                 case 36:{
-                    this.map[i] = '4';
+                    map[i] = '4';
                 }
                 case 45:{
-                    this.map[i] = '5';
+                    map[i] = '5';
                 }
                 case 54:{
-                    this.map[i] = '6';
+                    map[i] = '6';
                 }
                 case 63:{
-                    this.map[i] = '7';
+                    map[i] = '7';
                 }
                 case 72:{
-                    this.map[i] = '8';
+                    map[i] = '8';
                 }
                 default:{
-                    if (this.map[i] != 'w' || this.map[i] != 'b')
-                        this.map[i] = ' ';
+                    if (map[i] != 'w' || map[i] != 'b')
+                        map[i] = ' ';
                 }
             }
         }
 
         visualMap = new char[4 * SIZE + 1][8 * SIZE + 1];
+        //initialise the visualMap
         for (int xRow = 0; xRow <= 4 * SIZE; xRow++){
             for (int yColumn = 0; yColumn <= 8 * SIZE; yColumn++){
                 if (xRow % 4 == 0){
@@ -87,7 +101,7 @@ public class Board implements IBoard  {
                 }else if (yColumn % 8 == 0){
                     visualMap[xRow][yColumn] = '*';
                 } else {
-                    if (this.visualMap[xRow][yColumn] != 'w' || this.visualMap[xRow][yColumn] != 'b')
+                    if (visualMap[xRow][yColumn] != 'w' || visualMap[xRow][yColumn] != 'b')
                         visualMap[xRow][yColumn] = ' ';
                 }
             }
@@ -117,18 +131,25 @@ public class Board implements IBoard  {
         visualMap[34][4] = '8';
     }
 
+    /**
+     * This method get map.
+     * */
     public char[] getMap() {
         return map;
     }
 
+    /**
+     * this method get visual map
+     * */
     public char[][] getVisualMap() {
         return visualMap;
     }
 
-    public void printMap() throws IOException, InterruptedException{
+    /**
+     * this method clear the screen and print the map.
+     * */
+    static public void printMap() {
 
-        //clear terminal for refresh.
-        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         System.out.println();
         System.out.println();
         System.out.println();
@@ -141,16 +162,23 @@ public class Board implements IBoard  {
         }
     }
 
-    public void setMapByPosition(int position, char nut){
+    /*Access in version 0.0
+
+   public void setMapByPosition(int position, char nut){
         map[position] = nut;
     }
 
     public void setVisualMapByPosition(int xPosition, int yPosition, char nut){
         xPosition = 8 * (xPosition - 1) + 4;
         yPosition = 4 * (yPosition - 1) + 2;
-        this.visualMap[yPosition][xPosition] = nut;
+        visualMap[yPosition][xPosition] = nut;
     }
+    */
 
+    /**
+     * this method get the character and search the where is position nut.
+     * @param c is character that we want to search position of its.
+     * */
     public int searchPosition(char c){
         switch (c){
             case 'A':{
@@ -183,8 +211,27 @@ public class Board implements IBoard  {
         }
     }
 
-    public void refresh() throws IOException, InterruptedException {
+    /**
+     * this method refresh of map
+     * */
+    public static void refresh(){
         printMap();
     }
 
+
+    /**
+     * this method set value of "visualMap".
+     * @param map is value of visualMap field.
+     * */
+    public void setVisualMap(char[][] map) {
+        visualMap = map;
+    }
+
+    /**
+     * this method set value of "map".
+     * @param map2 is value of map field.
+     * */
+    public void setMap(char[] map2) {
+        map = map2;
+    }
 }
